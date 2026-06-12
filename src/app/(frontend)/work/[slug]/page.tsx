@@ -10,6 +10,14 @@ export const dynamic = 'force-dynamic'
 
 type Args = { params: Promise<{ slug: string }> }
 
+type MediaItem = {
+  kind?: 'image' | 'video' | 'audio' | null
+  file?: unknown
+  externalUrl?: string | null
+  colSpan?: number | null
+  alt?: string | null
+}
+
 function mediaUrl(file: unknown, size: 'feature' | 'card' | 'thumbnail' = 'feature'): string | null {
   if (!file || typeof file !== 'object') return null
   const f = file as { url?: string; sizes?: Record<string, { url?: string }> }
@@ -118,7 +126,7 @@ export default async function ProjectPage({ params }: Args) {
             className="project__grid"
             style={{ ['--cols' as string]: cols }}
           >
-            {gallery.map((m, i) => {
+            {(gallery as MediaItem[]).map((m, i) => {
               const url =
                 m.kind === 'image' || m.kind === 'video'
                   ? mediaUrl(m.file, m.kind === 'video' ? 'card' : 'feature') ?? m.externalUrl

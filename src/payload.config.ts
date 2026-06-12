@@ -24,7 +24,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Categories, Projects],
-  folders: true,
+  folders: {},
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

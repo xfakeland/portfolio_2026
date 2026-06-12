@@ -1,0 +1,6 @@
+media
+payload.db
+payload.db-journal
+.env*
+!.env.example
+scripts
