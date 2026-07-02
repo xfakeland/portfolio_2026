@@ -134,8 +134,10 @@ video {
 .home {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 32px;
   padding: 0 32px 32px;
   overflow: hidden;
 }
@@ -145,10 +147,16 @@ video {
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: 85vh;
+  max-height: 75vh;
   user-select: none;
   cursor: pointer;
   will-change: transform;
+}
+
+.home__caption {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
 }
 
 /* ───────────────────── Work ───────────────────── */
@@ -252,14 +260,6 @@ video {
   justify-content: center;
   padding: 0 64px 32px;
   min-height: calc(100dvh - var(--header-h));
-}
-
-.centered__about {
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.15;
-  text-align: center;
-  white-space: nowrap;
 }
 
 .centered__contact {
