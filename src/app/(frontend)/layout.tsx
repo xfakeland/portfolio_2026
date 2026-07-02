@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
 
-import { FollowCursor } from './_components/FollowCursor'
 import { Nav } from './_components/Nav'
 import './styles.css'
 
@@ -15,7 +14,6 @@ export default function FrontendLayout({ children }: { children: React.ReactNode
   return (
     <html lang="fr">
       <body>
-        <FollowCursor />
         <div className="site">
           <header className="site-header">
             <Link href="/" aria-label="Accueil">
