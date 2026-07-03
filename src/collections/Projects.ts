@@ -122,6 +122,42 @@ export const Projects: CollectionConfig = {
       },
     },
     {
+      type: 'row',
+      fields: [
+        {
+          name: 'workColSpan',
+          type: 'number',
+          required: true,
+          defaultValue: 6,
+          min: 1,
+          max: 12,
+          admin: {
+            width: '50%',
+            description: 'Largeur sur la page Work (en colonnes de la grille Work).',
+          },
+        },
+        {
+          name: 'workAspectRatio',
+          type: 'select',
+          required: true,
+          defaultValue: '2.2/1',
+          options: [
+            { label: '2.2:1 (cinéma large)', value: '2.2/1' },
+            { label: '16:9', value: '16/9' },
+            { label: '3:2', value: '3/2' },
+            { label: '4:3', value: '4/3' },
+            { label: '1:1 (carré)', value: '1/1' },
+            { label: '3:4 (portrait)', value: '3/4' },
+            { label: '2:3 (portrait)', value: '2/3' },
+          ],
+          admin: {
+            width: '50%',
+            description: 'Ratio de la vignette sur la page Work.',
+          },
+        },
+      ],
+    },
+    {
       name: 'importFromFolder',
       type: 'relationship',
       relationTo: 'payload-folders',

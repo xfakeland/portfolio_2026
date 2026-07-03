@@ -8,12 +8,16 @@ export const dynamic = 'force-dynamic'
 
 export default async function WorkPage() {
   const payload = await getPayload({ config })
-  const { docs: projects } = await payload.find({
-    collection: 'projects',
-    sort: 'order',
-    limit: 100,
-    depth: 2,
-  })
+  const [{ docs: projects }, settings] = await Promise.all([
+    payload.find({
+      collection: 'projects',
+      sort: 'order',
+      limit: 100,
+      depth: 2,
+    }),
+    payload.findGlobal({ slug: 'work-settings' }).catch(() => null),
+  ])
+  const workCols = Math.max(1, Math.min(12, (settings as { gridColumns?: number } | null)?.gridColumns ?? 6))
 
   if (projects.length === 0) {
     return (
@@ -35,7 +39,10 @@ export default async function WorkPage() {
   return (
     <>
     <main className="work">
-      <ul className="work__list">
+      <ul
+        className="work__list"
+        style={{ ['--work-cols' as string]: workCols }}
+      >
         {projects.map((p) => {
           const cover =
             typeof p.cover === 'object' && p.cover
@@ -50,8 +57,14 @@ export default async function WorkPage() {
                 .map((c) => (typeof c === 'object' && c ? c.name : null))
                 .filter((x): x is string => !!x)
             : []
+          const span = Math.max(1, Math.min(workCols, p.workColSpan ?? workCols))
+          const ratio = (p.workAspectRatio ?? '2.2/1') as string
+          const itemStyle = {
+            gridColumn: `span ${span} / span ${span}`,
+            ['--ratio' as string]: ratio,
+          }
           return (
-            <li key={p.id} className="work__item">
+            <li key={p.id} className="work__item" style={itemStyle}>
               <Link href={`/work/${p.slug}`} className="work__cover" aria-label={p.title}>
                 {coverUrl ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
