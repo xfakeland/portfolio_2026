@@ -119,11 +119,11 @@ export default async function ProjectPage({ params }: Args) {
 
         {project.description && (
           <div className="project__desc">
-            {project.description
+            {String(project.description)
               .split(/\n\s*\n/)
-              .map((para) => para.replace(/\s*\n\s*/g, ' ').trim())
-              .filter(Boolean)
-              .map((para, i) => (
+              .map((para: string) => para.replace(/\s*\n\s*/g, ' ').trim())
+              .filter((para: string) => para.length > 0)
+              .map((para: string, i: number) => (
                 <p key={i}>{para}</p>
               ))}
           </div>
