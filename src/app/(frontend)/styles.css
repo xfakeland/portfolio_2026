@@ -283,8 +283,10 @@ video {
 /* ───────────────────── Project ───────────────────── */
 
 .project-nav {
-  position: sticky;
+  position: fixed;
   top: var(--header-h);
+  left: 0;
+  right: 0;
   z-index: 40;
   background: var(--bg);
 }
@@ -331,7 +333,7 @@ video {
 
 .project__cover {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 2.2 / 1;
   overflow: hidden;
   background: #0a0a0a;
 }
@@ -362,8 +364,10 @@ video {
   margin-top: 48px;
   font-size: 15px;
   line-height: 1.6;
-  white-space: pre-wrap;
   max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
 .project__grid {

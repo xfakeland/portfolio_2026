@@ -118,7 +118,15 @@ export default async function ProjectPage({ params }: Args) {
         </header>
 
         {project.description && (
-          <div className="project__desc">{project.description}</div>
+          <div className="project__desc">
+            {project.description
+              .split(/\n\s*\n/)
+              .map((para) => para.replace(/\s*\n\s*/g, ' ').trim())
+              .filter(Boolean)
+              .map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+          </div>
         )}
 
         {gallery.length > 0 && (
