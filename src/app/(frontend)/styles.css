@@ -282,51 +282,6 @@ video {
 
 /* ───────────────────── Project ───────────────────── */
 
-.project-nav {
-  position: fixed;
-  top: var(--header-h);
-  left: 0;
-  right: 0;
-  z-index: 40;
-  background: var(--bg);
-}
-
-.project-nav__row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--margin) 16px;
-  font-size: 16px;
-}
-
-.project-nav__back:hover,
-.project-nav__side:hover span {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.project-nav__sides {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.project-nav__side {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.project-nav__sep {
-  opacity: 0.6;
-  user-select: none;
-}
-
-.project-nav__rule {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.3);
-}
-
 .project {
   padding: 24px var(--margin) var(--margin);
 }

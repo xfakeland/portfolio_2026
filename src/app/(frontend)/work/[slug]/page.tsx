@@ -1,9 +1,7 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
-import { ArrowLeft, ArrowRight } from '../../_components/Arrows'
 import { Footer } from '../../_components/Footer'
 
 export const dynamic = 'force-dynamic'
@@ -28,20 +26,12 @@ export default async function ProjectPage({ params }: Args) {
   const { slug } = await params
   const payload = await getPayload({ config })
 
-  const [{ docs: matched }, { docs: all }] = await Promise.all([
-    payload.find({
-      collection: 'projects',
-      where: { slug: { equals: slug } },
-      limit: 1,
-      depth: 2,
-    }),
-    payload.find({
-      collection: 'projects',
-      sort: 'order',
-      limit: 200,
-      depth: 0,
-    }),
-  ])
+  const { docs: matched } = await payload.find({
+    collection: 'projects',
+    where: { slug: { equals: slug } },
+    limit: 1,
+    depth: 2,
+  })
 
   const project = matched[0]
   if (!project) notFound()
@@ -64,37 +54,8 @@ export default async function ProjectPage({ params }: Args) {
     ? project.media ?? []
     : (project.media ?? []).slice(1) // avoid duplicating media[0] used as cover
 
-  // Prev/next (circular, by `order`)
-  const idx = all.findIndex((p) => p.id === project.id)
-  const prev = all.length > 1 && idx >= 0 ? all[(idx - 1 + all.length) % all.length] : null
-  const next = all.length > 1 && idx >= 0 ? all[(idx + 1) % all.length] : null
-
   return (
     <>
-      <nav className="project-nav" aria-label="Navigation projet">
-        <div className="project-nav__row">
-          <Link href="/work" className="project-nav__back">
-            Retour
-          </Link>
-          <div className="project-nav__sides">
-            {prev && (
-              <Link href={`/work/${prev.slug}`} className="project-nav__side">
-                <ArrowLeft />
-                <span>Projet précédent</span>
-              </Link>
-            )}
-            {prev && next && <span className="project-nav__sep">/</span>}
-            {next && (
-              <Link href={`/work/${next.slug}`} className="project-nav__side">
-                <span>Projet suivant</span>
-                <ArrowRight />
-              </Link>
-            )}
-          </div>
-        </div>
-        <div className="project-nav__rule" />
-      </nav>
-
       <main className="project">
         {coverUrl && (
           <div className="project__cover">
